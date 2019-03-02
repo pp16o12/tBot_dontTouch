@@ -21,14 +21,14 @@ namespace ConsoleApp1
             Console.ReadLine();
         }
 
-        private static void BotClient_OnMessage(object sender, Telegram.Bot.Args.MessageEventArgs e)
+        private async static void BotClient_OnMessage(object sender, Telegram.Bot.Args.MessageEventArgs e)
         {
             Console.WriteLine(e.Message.Chat.Id + ":" + e.Message.Chat.Username + "= " + e.Message.Text);
             switch (e.Message.Text)
             {
                 case "/start":
-                    botClient.SendTextMessageAsync(e.Message.Chat.Id, "Welcome");
-                    //botClient.SendPhotoAsync(e.Message.Chat.Id, "C:/Users/student/Desktop/83234881-medieval-game-sprites-characters-collection-arbalester.jpg");
+                    await botClient.SendTextMessageAsync(e.Message.Chat.Id, "Welcome");
+                    await botClient.SendPhotoAsync(e.Message.Chat.Id, "https://ru.clipartlogo.com/istockphoto/file?id=83234881&function=premium_detail&location=preview");
                     break;
                 default:
                     break;
