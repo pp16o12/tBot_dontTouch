@@ -24,12 +24,14 @@ namespace ConsoleApp1
             Console.ReadLine();
         }
 
+        static int[] messId = new int[3];
+
         private static async void BotClient_OnCallbackQuery(object sender, Telegram.Bot.Args.CallbackQueryEventArgs e)
         {
             InlineKeyboardButton back = new InlineKeyboardButton();
             back.Text = "Вернутся";
             back.CallbackData = "/back";
-            int[] messId = new int[2];
+            //int[] messId = new int[2];
             switch (e.CallbackQuery.Data.ToLower())
             {
                 case "/taverna":
@@ -44,7 +46,7 @@ namespace ConsoleApp1
                         }
                         catch(Telegram.Bot.Exceptions.ApiRequestException ex)
                         {
-
+                            
                         }
                     }
                     break;
@@ -60,7 +62,7 @@ namespace ConsoleApp1
                         }
                         catch (Telegram.Bot.Exceptions.ApiRequestException ex)
                         {
-
+                            
                         }
                     }
                     break;
@@ -82,7 +84,7 @@ namespace ConsoleApp1
                     break;
                 case "/back":
                     {
-                        await botClient.DeleteMessageAsync(e.CallbackQuery.Message.Chat, e.CallbackQuery.Message.MessageId);
+                        messId[2] = e.CallbackQuery.Message.MessageId;
                         await getMainGamePage(e.CallbackQuery.Message.Chat);
                     }
                     break;
@@ -129,7 +131,8 @@ namespace ConsoleApp1
         {
             for (int i = 0; i < messId.Length; i++)
             {
-                await botClient.DeleteMessageAsync(chatId, messId[i]);
+                if(messId[i] != 0)
+                    await botClient.DeleteMessageAsync(chatId, messId[i]);
             }
         }
     }
